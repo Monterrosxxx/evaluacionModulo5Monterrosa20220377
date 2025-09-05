@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+// Importar las variables desde @env
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID } from '@env';
 
-// Configuración de Firebase
+// Configuración de Firebase usando las variables de entorno
 const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
@@ -13,8 +14,8 @@ const firebaseConfig = {
   appId: APP_ID    
 };
 
-console.log("Configuración de Firebase:", firebaseConfig);
-console.log("API_KEY:", API_KEY);
+console.log("🔥 Inicializando Firebase...");
+console.log("📋 Config:", firebaseConfig);
 
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
@@ -23,16 +24,6 @@ const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
 const auth = getAuth(app);
 
-if (database) {
-  console.log('Firestore inicializado correctamente');
-} else {
-  console.log('Error al inicializar Firestore');
-}
-
-if (auth) {
-  console.log('Auth inicializado correctamente');
-} else {
-  console.log('Error al inicializar Auth');
-}
+console.log("✅ Firebase inicializado exitosamente");
 
 export { database, auth };
