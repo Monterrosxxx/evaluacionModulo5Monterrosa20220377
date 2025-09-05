@@ -11,12 +11,13 @@ import TabNavigation from './TabNavigation';
 
 const Stack = createNativeStackNavigator();
 
-// Componente de navegación principal
-const AppNavigator = () => {
+// Componente de navegación principal que maneja la autenticación
+const AuthNavigator = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <SplashScreen />;
+    // Mientras se verifica la autenticación, mostrar splash
+    return <SplashScreen isCheckingAuth={true} />;
   }
 
   return (
@@ -35,12 +36,28 @@ const AppNavigator = () => {
   );
 };
 
+// Navegador principal que incluye la splash screen inicial
+const MainNavigator = () => {
+  return (
+    <Stack.Navigator 
+      screenOptions={{ headerShown: false }}
+      initialRouteName="Splash"
+    >
+      {/* Splash screen inicial que se muestra al abrir la app */}
+      <Stack.Screen name="Splash" component={SplashScreen} />
+      
+      {/* Navegación principal con autenticación */}
+      <Stack.Screen name="Auth" component={AuthNavigator} />
+    </Stack.Navigator>
+  );
+};
+
 // Componente principal de navegación con proveedor de autenticación
 const Navigation = () => {
   return (
     <AuthProvider>
       <NavigationContainer>
-        <AppNavigator />
+        <MainNavigator />
       </NavigationContainer>
     </AuthProvider>
   );
